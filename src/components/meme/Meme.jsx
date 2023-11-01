@@ -109,14 +109,14 @@ const Meme = () => {
               </h3>
               <div className="flex gap-2 py-2">
                 <button
-                  onClick={() => downloadMeme(yourMeme, data.name)}
+                  onClick={() => downloadMeme(yourMeme ? yourMeme : data.blank, data.name)}
                   className="bg-blue-600 rounded-lg text-white flex-1 py-1 font-semibold"
                 >
                   .png
                 </button>
                 <button
                   onClick={() =>
-                    downloadMeme(yourMeme.replace(/\.png$/, ".gif"), data.name)
+                    downloadMeme(yourMeme ? yourMeme.replace(/\.png$/, ".gif") : data.blank.replace(/\.png$/, ".gif"), data.name)
                   }
                   className="bg-blue-600 rounded-lg text-white flex-1 py-1 font-semibold"
                 >
@@ -124,7 +124,7 @@ const Meme = () => {
                 </button>
                 <button
                   onClick={() =>
-                    downloadMeme(yourMeme.replace(/\.png$/, ".webp"), data.name)
+                    downloadMeme(yourMeme ? yourMeme.replace(/\.png$/, ".webp") : data.blank.replace(/\.png$/, ".webp"), data.name)
                   }
                   className="bg-blue-600 rounded-lg text-white flex-1 py-1 font-semibold"
                 >
