@@ -1,0 +1,17 @@
+const chekcSpelling = (x) => {
+  let newCh = x;
+  newCh = newCh.replaceAll("''", '"')
+  newCh = newCh.replaceAll(">", "~g")
+  newCh = newCh.replaceAll("<", "~l")
+  newCh = newCh.replaceAll("\\", "~b")
+  newCh = newCh.replaceAll("/", "~s")
+  newCh = newCh.replaceAll("#", "~h")
+  newCh = newCh.replaceAll("%", "~p")
+  newCh = newCh.replaceAll("&", "~a")
+  newCh = newCh.replaceAll("?", "~q")
+  newCh = newCh.replaceAll("\n", "~n")
+  newCh = newCh.replaceAll("-", "--")
+  newCh = newCh.replaceAll("_", "__")
+  newCh = newCh.replaceAll(" ", "_")
+  return newCh
+}
