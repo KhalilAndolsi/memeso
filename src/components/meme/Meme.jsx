@@ -6,6 +6,7 @@ const Meme = () => {
   const { meme } = useParams();
   const [data, setData] = useState({});
   const [yourMeme, setYourMeme] = useState("");
+  const [memeType, setMemeType] = useState(".png");
 
   const getData = async () => {
     await axios
@@ -65,7 +66,7 @@ const Meme = () => {
       baseUrl += "/";
     }
     const path = pathSegments.join("/");
-    const newImg = baseUrl + path + ".png";
+    const newImg = baseUrl + path + memeType;
 
     setYourMeme(newImg);
   };
@@ -93,14 +94,8 @@ const Meme = () => {
               ))}
             </div>
             <div className="flex-1 p-2 border-2 border-blue-600 m-3 rounded-lg">
-              <button
-                onClick={() => downloadMeme(data.blank, data.name)}
-                className="bg-blue-600 rounded-lg text-white w-full py-1 mb-2 font-semibold"
-              >
-                Download The Template
-              </button>
               <img
-                src={yourMeme || data.blank}
+                src={yourMeme.replace(/\.(png|gif|webp)$/, memeType) || data.blank.replace(/\.png$/, memeType)}
                 alt={data.name}
                 className="object-contain rounded-md h-[300px] m-auto"
               />
@@ -109,28 +104,47 @@ const Meme = () => {
               </h3>
               <div className="flex gap-2 py-2">
                 <button
-                  onClick={() => downloadMeme(yourMeme ? yourMeme : data.blank, data.name)}
-                  className="bg-blue-600 rounded-lg text-white flex-1 py-1 font-semibold"
+                  onClick={() => setMemeType(".png")}
+                  className={`flex-1  rounded-md border-2 border-blue-600 ${
+                    memeType === ".png"
+                      ? "bg-blue-600 text-white"
+                      : "bg-white text-blue-600"
+                  }`}
                 >
                   .png
                 </button>
                 <button
-                  onClick={() =>
-                    downloadMeme(yourMeme ? yourMeme.replace(/\.png$/, ".gif") : data.blank.replace(/\.png$/, ".gif"), data.name)
-                  }
-                  className="bg-blue-600 rounded-lg text-white flex-1 py-1 font-semibold"
+                  onClick={() => setMemeType(".gif")}
+                  className={`flex-1  rounded-md border-2 border-blue-600 ${
+                    memeType === ".gif"
+                      ? "bg-blue-600 text-white"
+                      : "bg-white text-blue-600"
+                  }`}
                 >
                   .gif
                 </button>
                 <button
-                  onClick={() =>
-                    downloadMeme(yourMeme ? yourMeme.replace(/\.png$/, ".webp") : data.blank.replace(/\.png$/, ".webp"), data.name)
-                  }
-                  className="bg-blue-600 rounded-lg text-white flex-1 py-1 font-semibold"
+                  onClick={() => setMemeType(".webp")}
+                  className={`flex-1  rounded-md border-2 border-blue-600 ${
+                    memeType === ".webp"
+                      ? "bg-blue-600 text-white"
+                      : "bg-white text-blue-600"
+                  }`}
                 >
                   .webp
                 </button>
               </div>
+              <button
+                onClick={() =>
+                  downloadMeme(
+                    yourMeme || data.blank.replace(/\.png$/, memeType),
+                    data.name
+                  )
+                }
+                className="bg-blue-600 rounded-lg text-white w-full py-1 mb-2 font-semibold"
+              >
+                Download
+              </button>
             </div>
           </div>
         </div>
